@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 import { ButtonForScan } from "../Components/ButtonForScan";
+import { ButtonQuitScan } from "../Components/ButtonQuitScan";
 import { OpenScanForProduct } from "../Components/OpenScanForProduct";
+import { AddProduct } from "../Components/AddProduct";
 
 export const MainScreen = ({ addBarcode }) => {
 	const [loadComponent, setloadComponent] = useState(false);
@@ -17,17 +19,19 @@ export const MainScreen = ({ addBarcode }) => {
 	let component;
 
 	if (loadComponent) {
-		component = <ButtonForScan onPress={handleLoadComponent} />;
+		component = (
+			<AddProduct onPress={handleDoNotComponent} addBarcode={addBarcode} />
+		);
+		// component = <ButtonQuitScan onPress={handleDoNotComponent} />;
 	} else {
-		component = null;
+		component = <ButtonForScan onPress={handleLoadComponent} />;
 	}
 
 	return (
 		<View>
 			<OpenScanForProduct
-				onPressScan={loadComponent}
+				loadComponent={loadComponent}
 				addBarcode={addBarcode}
-				onPress={handleLoadComponent}
 			/>
 			{component}
 		</View>

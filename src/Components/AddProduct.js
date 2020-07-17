@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Button, Alert } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import { ButtonQuitScan } from "../Components/ButtonQuitScan";
+import { window } from "../Components/UI/Layout";
 
-export const AddProduct = ({ addBarcode }) => {
+export const AddProduct = ({ addBarcode, onPress }) => {
 	const [hasPermission, setHasPermission] = useState(null);
 	const [scanned, setScanned] = useState(false);
 
@@ -16,6 +18,7 @@ export const AddProduct = ({ addBarcode }) => {
 
 	const handleBarCodeScanned = ({ type, data }) => {
 		setScanned(true);
+		console.log(addBarcode(data));
 		addBarcode(data);
 		Alert(`Bar code with type ${type} and data ${data} has been scanned!`);
 	};
@@ -31,12 +34,7 @@ export const AddProduct = ({ addBarcode }) => {
 		<View style={styles.addProduct}>
 			<BarCodeScanner
 				onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-				barCodeTypes={[
-					BarCodeScanner.Constants.BarCodeType.ean13,
-					BarCodeScanner.Constants.BarCodeType.ean8,
-					BarCodeScanner.Constants.BarCodeType.qr,
-				]}
-				style={[StyleSheet.absoluteFillObject, styles.container]}
+				style={{ height: window.height / 2, width: window.height }}
 			/>
 
 			{scanned && (
@@ -47,6 +45,7 @@ export const AddProduct = ({ addBarcode }) => {
 					}}
 				/>
 			)}
+			<ButtonQuitScan onPress={onPress} />
 		</View>
 	);
 };
@@ -56,6 +55,8 @@ const styles = StyleSheet.create({
 		...StyleSheet.absoluteFillObject,
 		flex: 1,
 		flexDirection: "column",
-		justifyContent: "flex-end",
+		justifyContent: "center",
+		alignItems: "center",
+		width: "100%",
 	},
 });
