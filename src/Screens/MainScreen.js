@@ -19,10 +19,7 @@ export const MainScreen = ({ addBarcode }) => {
 	let component;
 
 	if (loadComponent) {
-		component = (
-			<AddProduct onPress={handleDoNotComponent} addBarcode={addBarcode} />
-		);
-		// component = <ButtonQuitScan onPress={handleDoNotComponent} />;
+		component = <ButtonQuitScan onPress={handleDoNotComponent} />;
 	} else {
 		component = <ButtonForScan onPress={handleLoadComponent} />;
 	}
