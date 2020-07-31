@@ -36,6 +36,7 @@ export const AddProduct = ({ addBarcode }) => {
 
 			{scanned && (
 				<Button
+					style={styles.buttonCam}
 					title={"Нажмите для повторного сканирования"}
 					onPress={() => {
 						setScanned(false);
@@ -53,5 +54,10 @@ const styles = StyleSheet.create({
 		justifyContent: "flex-start",
 		alignItems: "center",
 		width: "100%",
+	},
+	buttonCam: {
+		padding: 10,
+		borderWidth: 5,
+		borderStyle: "solid",
 	},
 });
